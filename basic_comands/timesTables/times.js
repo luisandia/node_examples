@@ -1,12 +1,13 @@
 const fs = require('fs');
+const colors = require('colors');
 
-makeFile = (base) => {
+makeFile = (base, limit = 10) => {
   return new Promise((resolve, reject) => {
-    if(!Number(base)){
+    if (!Number(base)) {
       reject('Is not a number');
     }
     let data = '';
-    for (let i = 1; i < 11; i++) {
+    for (let i = 1; i <= limit; i++) {
       data += `${base} * ${i} = ${base * i}\n`;
     }
 
@@ -17,6 +18,19 @@ makeFile = (base) => {
   });
 };
 
+listTable = (base, limit = 10) => {
+
+  console.log(`========  TABLE of ${base} =========`.green);
+  console.log(`====================================`.green);
+  if (!Number(base)) {
+    throw ('Is not a number');
+  }
+  for (let i = 1; i <= limit; i++) {
+    console.log(colors.blue(base) +` * ${colors.red(i) } = ${colors.blue(base * i) }`);
+  }
+};
+
 module.exports = {
-  makeFile
+  makeFile,
+  listTable
 };
