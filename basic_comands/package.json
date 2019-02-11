@@ -1,0 +1,23 @@
+{
+  "name": "times--tables",
+  "version": "1.0.0",
+  "description": "multiply table of a number",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/luisandia/node_examples.git"
+  },
+  "keywords": [
+    "examples",
+    "nodejs"
+  ],
+  "author": "luis andia",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/luisandia/node_examples/issues"
+  },
+  "homepage": "https://github.com/luisandia/node_examples#readme"
+}
