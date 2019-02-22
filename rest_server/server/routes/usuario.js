@@ -23,8 +23,8 @@ app.post('/usuario', function (req, res) {
     }
 
     res.json({
-      ok:true,
-      usuario:usuarioDB
+      ok: true,
+      usuario: usuarioDB
     });
 
 
