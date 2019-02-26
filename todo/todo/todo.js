@@ -1,4 +1,4 @@
-const fs = require('fs')
+const fs = require('fs');
 
 let todolist = [];
 const saveDb = () => {
@@ -6,7 +6,7 @@ const saveDb = () => {
   fs.writeFile('db/data.json', data, (err) => {
     if (err) console.log(err);
   });
-}
+};
 
 const loadDb = () => {
   try {
@@ -14,17 +14,19 @@ const loadDb = () => {
   } catch (error) {
     todolist = [];
   }
-}
+};
+
 const create = (description) => {
   let todo = {
     description,
     completado: false
   };
-  loadDb()
+  loadDb();
   todolist.push(todo);
   saveDb();
   return todo;
-}
+};
+
 const getList = () => {
   loadDb();
   return todolist;
@@ -44,7 +46,7 @@ const update = (desc, complete = true) => {
 const erase = (description) => {
   loadDb();
   console.log(description);
-  let list = todolist.filter(tarea => tarea.description !== description)
+  let list = todolist.filter(tarea => tarea.description !== description);
   if (list.length == todolist.length) {
     return false;
   } else {
@@ -52,7 +54,7 @@ const erase = (description) => {
     saveDb();
     return true;
   }
-}
+};
 
 
 
@@ -64,4 +66,4 @@ module.exports = {
   update,
   erase
 
-}
+};

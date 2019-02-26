@@ -19,7 +19,7 @@ switch (comando) {
     console.log(actualizado);
     console.log('todo'); break;
     case 'erase':
-    let del = todo.erase(argv.description)
+    let del = todo.erase(argv.description);
     console.log(del);
     break;
   default:
