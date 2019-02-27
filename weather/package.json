@@ -18,6 +18,6 @@
   "homepage": "https://github.com/luisandia/node_examples#readme",
   "dependencies": {
     "axios": "^0.18.0",
-    "yargs": "^13.1.0"
+    "yargs": "^13.2.1"
   }
 }
