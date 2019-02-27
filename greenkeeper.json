@@ -1,0 +1,13 @@
+{
+  "groups": {
+    "default": {
+      "packages": [
+        "basic_comands/package.json",
+        "rest_server/package.json",
+        "todo/package.json",
+        "weather/package.json",
+        "webserver/package.json"
+      ]
+    }
+  }
+}
