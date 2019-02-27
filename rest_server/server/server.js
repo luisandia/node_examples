@@ -11,6 +11,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(require('./routes/usuario'));
 app.use(require('./routes/upload'));
+app.use(require('./routes/imagenes'));
 mongoose.set('useCreateIndex', true);
 
 mongoose.connect(process.env.URLDB , { useNewUrlParser: true }, (err, res) => {
