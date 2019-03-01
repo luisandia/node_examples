@@ -24,7 +24,7 @@ let VerificaAdminRole = (req, res, next) => {
       message: 'User is not administrator'
     }
   });
-}
+};
 module.exports = {
   verificaToken,
   VerificaAdminRole
