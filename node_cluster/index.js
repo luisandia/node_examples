@@ -1,6 +1,7 @@
-process.env.UV_THREADPOOL_SIZE=1;
+process.env.UV_THREADPOOL_SIZE = 1;
 const cluster = require('cluster');
 const crypto = require('crypto');
+
 if (cluster.isMaster) {
   //index.js executed again but in slave mode
   cluster.fork();
@@ -13,7 +14,6 @@ if (cluster.isMaster) {
   app.get('/', (req, res) => {
     crypto.pbkdf2('a', 'b', 10000, 512, 'sha512', () => {
       res.send('Hello World!');
-      
     });
   });
   app.get('/fast', (req, res) => {
