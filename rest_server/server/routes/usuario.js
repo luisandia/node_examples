@@ -3,7 +3,40 @@ const bcrypt = require('bcrypt');
 const _ = require('underscore');
 const Usuario = require('../models/usuario');
 const { verificaToken, VerificaAdminRole } = require('../middleware/autenticacion');
-const app = express();
+
+
+
+
+// const app = express();
+
+///////////
+
+var cookieParser = require('cookie-parser')
+var csrf = require('csurf')
+var bodyParser = require('body-parser')
+
+// setup route middlewares
+var csrfProtection = csrf({ cookie: true })
+var parseForm = bodyParser.urlencoded({ extended: false })
+
+// create express app
+var app = express()
+
+// parse cookies
+// we need this because "cookie" is true in csrfProtection
+app.use(cookieParser())
+
+app.get('/form', csrfProtection, function (req, res) {
+  // pass the csrfToken to the view
+  res.send( { csrfToken: req.csrfToken() })
+})
+
+app.post('/process', parseForm, csrfProtection, procesa)
+
+function procesa(req, res) {
+  res.send('data is being processed')
+}
+
 
 app.get('/usuario', verificaToken, function (req, res) {
   let from = Number(req.query.from) || 0;
