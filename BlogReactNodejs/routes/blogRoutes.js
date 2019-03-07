@@ -19,6 +19,8 @@ module.exports = app => {
     const client = redis.createClient(redisUrl);
     const util = require('util');
     client.get = util.promisify(client.get);
+
+
     // Do we have any cached data in redis related to this query
     const cacheBlogs = await client.get(req.user.id);
     // if yes then respond to the request right away return
