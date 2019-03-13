@@ -11,10 +11,10 @@ beforeEach(async () => {
 });
 
 afterEach(async () => {
-  await browser.close();
+  // await browser.close();
 });
 
-test('We can launch a browser', async () => {
+test('the header has the correct text', async () => {
   const text = await page.$eval('a.brand-logo', el => el.innerHTML);
   console.log(text);
   expect(text).toEqual('Blogster');
@@ -27,17 +27,24 @@ test('clicking login starts oauth flow', async () => {
 });
 
 test('when signed in, shows logout button', async () => {
-  const id = "asdf";
+  const id = "5c7c8cb02ec6fa55546b5e8e";
   const Buffer = require('safe-buffer').Buffer;
   const sessionObject = {
     passport: {
       user: id
     }
   };
-  const sessionString = Buffer.from(JSON.stringify(sessionObject)).toString('bse64');
+  const sessionString = Buffer.from(JSON.stringify(sessionObject)).toString('base64');
   const Keygrip = require('keygrip');
   const keys = require('../config/keys');
   const keygrip = new Keygrip([keys.cookieKey]);
-  const sig = keygrip.sign('session='+sessionString);
-  console.log(sessionString,sig);
-})
+  const sig = keygrip.sign('session=' + sessionString);
+
+  await page.setCookie({ name: 'session', value: sessionString });
+  await page.setCookie({ name: 'session.sig', value: sig });
+  page = await browser.newPage();
+  await page.goto('localhost:3000');
+  await page.waitFor('a[href="/auth/logout"]');
+  const text = await page.$eval('a[href="/auth/logout"]', el => el.innerHTML);
+  expect(text).toEqual('Logout');
+});
