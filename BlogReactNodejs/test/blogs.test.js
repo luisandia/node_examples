@@ -1,5 +1,4 @@
 const Page = require('./helpers/page');
-
 let page;
 
 beforeEach(async () => {
@@ -10,8 +9,6 @@ beforeEach(async () => {
 afterEach(async () => {
   await page.close();
 });
-
-
 
 describe('when logged in', async () => {
   beforeEach(async () => {
@@ -26,10 +23,11 @@ describe('when logged in', async () => {
     beforeEach(async () => {
       await page.type('.title input', 'My title');
       await page.type('.content input', 'My content');
+      await page.click('button.teal');
     });
     test('Submitting takes user to review screen', async () => {
       const text = await page.getContentsOf('h5');
-      expect(text).toEqual('Pleas confirm your entries');
+      expect(text).toEqual('Please confirm your entries');
     });
     test('Submitting then saving adds blog to index page', async () => {
       await page.click('button.green');
@@ -37,7 +35,7 @@ describe('when logged in', async () => {
       const title = await page.getContentsOf('.card-title');
       const content = await page.getContentsOf('p');
       expect(title).toEqual('My title');
-      expect(content).toEqual('My content'); S
+      expect(content).toEqual('My content');
     });
   });
   describe('And using invalid inputs', async () => {
@@ -50,5 +48,34 @@ describe('when logged in', async () => {
       expect(titleError).toEqual('You must provide a value');
       expect(contentError).toEqual('You must provide a value');
     });
+  });
+});
+
+describe('User is not logged in ', async () => {
+  test('user cannot create blog posts', async () => {
+    const result = await page.evaluate(() => {
+      return fetch('/api/blogs', {
+        method: 'POST',
+        credentials: 'same-origin',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ title: 'MY TITLE', content: 'My content' })
+      }).then(async res => res.json());
+    });
+    expect(result).toEqual({ error: "You must log in!" });
+  });
+
+  test('User cannot get a list of posts', async () => {
+    const result = await page.evaluate(() => {
+      return fetch('/api/blogs', {
+        method: 'GET',
+        credentials: 'same-origin',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }).then(async res => res.json());
+    });
+    expect(result).toEqual({ error: "You must log in!" });
   });
 });
