@@ -7,9 +7,9 @@ class BlogShow extends Component {
     this.props.fetchBlog(this.props.match.params._id);
   }
 
-  renderImage(){
-    if (this.props.blog.imageUrl){
-      return <img src={'https://s3-sa-east-1.amazonaws.com/myblogluisandia/'+this.props.blog.imageUrl} />;
+  renderImage() {
+    if (this.props.blog.imageUrl) {
+      return <img src={'https://s3-sa-east-1.amazonaws.com/myblogluisandia/' + this.props.blog.imageUrl} />;
     }
   }
 
